@@ -30,7 +30,7 @@ include_once('templates/header.php');
                     <a href="#">
                         <i class="far fa-edit edit-icon"></i>
                     </a>
-                    <button type="submit">
+                    <button class="delete-btn" type="submit">
                         <i class="fas fa-times delete-icon"></i>
                     </button>
                 </td>
