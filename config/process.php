@@ -25,19 +25,46 @@ if (!empty($data)) {
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":phone", $phone);
         $stmt->bindParam(":observations", $observations);
+
+        try {
+
+            $stmt->execute();
+
+            $_SESSION['msg'] = 'Contato criado com sucesso!';
+        } catch (PDOException $e) {
+            //erro na conexao
+            $error = $e->getMessage();
+            echo "Erro: $error";
+        }
+    } elseif ($data['type'] === 'edit') {
+        $name = $data['name'];
+        $phone = $data['phone'];
+        $observations = $data['observations'];
+        $id = $data['id'];
+
+        $query = "UPDATE contacts 
+        SET name = :name, phone = :phone, observations = :observations 
+        WHERE id = :id";
+
+        $stmt = $conn->prepare($query);
+
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":phone", $phone);
+        $stmt->bindParam(":observations", $observations);
+        $stmt->bindParam(":id", $id);
+
+        try {
+
+            $stmt->execute();
+
+            $_SESSION['msg'] = 'Contato atualizado com sucesso!';
+        } catch (PDOException $e) {
+            //erro na conexao
+            $error = $e->getMessage();
+            echo "Erro: $error";
+        }
     }
 
-
-    try {
-
-        $stmt->execute();
-
-        $_SESSION['msg'] = 'Contato criado com sucesso!';
-    } catch (PDOException $e) {
-        //erro na conexao
-        $error = $e->getMessage();
-        echo "Erro: $error";
-    }
 
     // redireciona a home
     header('Location:' . $BASE_URL . '../index.php');
