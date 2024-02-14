@@ -30,9 +30,13 @@ include_once('templates/header.php');
                     <a href="<?= $BASE_URL ?>edit.php?id=<?= $contact['id'] ?>">
                         <i class="far fa-edit edit-icon"></i>
                     </a>
-                    <button class="delete-btn" type="submit">
-                        <i class="fas fa-times delete-icon"></i>
-                    </button>
+                    <form class="delete-form" action="<?= $BASE_URL ?>config/process.php" method="post">
+                        <input type="hidden" name="type" value="delete">
+                        <input type="hidden" name="id" value="<?= $contact['id'] ?>">
+                        <button class="delete-btn" type="submit">
+                            <i class="fas fa-times delete-icon"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
             <?php endforeach; ?>
